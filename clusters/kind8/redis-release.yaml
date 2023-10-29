@@ -14,11 +14,60 @@ spec:
         name: bitnami
         namespace: default
       interval: 1m
+      valuesFiles:
+        - redis-values.yaml
   install:
     remediation:
       retries: 3
   upgrade:
     remediation:
       remediateLastFailure: false
-  valuesFrom:
-    - redis-values.yaml
+  values:
+    global:
+      redis:
+        password: 'abc123'
+    image:
+      tag: 7.2.2-debian-11-r0
+    architecture: standalone #replication
+    auth:
+      enabled: true
+      password: "abc123"
+    master:
+      count: 1
+      resources: {}
+      persistence:
+        enabled: true
+        size: 1Gi
+      service:
+        type: ClusterIP
+        ports:
+          redis: 6379
+    replica:
+      replicaCount: 3
+      resources: {}
+      persistence:
+        enabled: true
+        size: 1Gi
+      service:
+        type: ClusterIP
+        ports:
+          redis: 6379
+      autoscaling:
+        enabled: false
+        targetCPU: "80"
+        targetMemory: "80"
+        maxReplicas: 3
+    sentinel:
+      enabled: false
+      resources: {}
+      persistence:
+        enabled: true
+        size: 1Gi
+      metrics: {}
+    tls:
+      enabled: false
+    metrics:
+      enabled: false
+      serviceMonitor:
+        enabled: false
+
