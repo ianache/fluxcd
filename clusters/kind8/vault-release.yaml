@@ -22,7 +22,39 @@ spec:
     remediation:
       remediateLastFailure: false
   values:
-    resources:
-      requests:
-        cpu: 100m
-        memory: 128Mi
+    server:
+      enabled: true
+      dev:
+        enabled: true
+        devRootToken: "root"
+
+      ingress:
+        enabled: true
+        labels: {}
+        annotations:
+          cert-manager.io/cluster-issuer: selfsigned
+        ingressClassName: "nginx"
+        pathType: Prefix
+        activeService: true
+        hosts:
+          - host: vault.crossnetcorp.com
+            paths: []
+        tls:
+        - secretName: vault-tls
+          hosts:
+          - vault.crossnetcorp.com
+      # Storages 
+      dataStorage:
+        enabled: true
+        size: 1Gi
+      auditStorage:
+        enabled: false
+        size: 1Gi
+    ui:
+      enabled: true
+
+
+    #resources:
+    #  requests:
+    #    cpu: 100m
+    #    memory: 128Mi
