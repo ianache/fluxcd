@@ -14,8 +14,6 @@ spec:
         name: bitnami
         namespace: default
       interval: 1m
-      valuesFiles:
-        - redis-values.yaml
   install:
     remediation:
       retries: 3
