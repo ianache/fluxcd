@@ -32,6 +32,7 @@ spec:
         enabled: true
         labels: {}
         annotations:
+          company: xnet
           cert-manager.io/cluster-issuer: selfsigned
         ingressClassName: "nginx"
         pathType: Prefix
