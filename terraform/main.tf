@@ -12,3 +12,8 @@ provider "vault" {
   token           = "root"
   skip_tls_verify = true
 }
+
+provider "kubernetes" {
+  config_path    = "~/.kube/config"
+#  config_context = "my-context"
+}
