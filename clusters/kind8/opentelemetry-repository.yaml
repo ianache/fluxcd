@@ -5,4 +5,4 @@ metadata:
   namespace: default
 spec:
   interval: 1m
-  url: https://open-telemetry.github.io/opentelemetry-helm-chart
+  url: https://open-telemetry.github.io/opentelemetry-helm-charts
