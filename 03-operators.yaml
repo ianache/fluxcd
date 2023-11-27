@@ -1,0 +1,6 @@
+---
+- name: Instalar Operators
+  hosts: ["localhost"]
+  connection: local
+  roles:
+  - name: mysql-operator

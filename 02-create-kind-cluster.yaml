@@ -1,0 +1,6 @@
+---
+- name: Instalar Kind
+  hosts: ["localhost"]
+  connection: local
+  roles:
+  - name: kind-cluster
