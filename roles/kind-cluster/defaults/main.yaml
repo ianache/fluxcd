@@ -1,0 +1,21 @@
+kind:
+  cluster:
+    name: xnetcorp
+    api:
+      server:
+        port: 6443
+        address: "127.0.0.1"
+    pod:
+      subnet: "10.244.0.0/16"
+    service:
+      subnet: "10.96.0.0/12"
+    disableDefaultCNI: false
+    cp:
+      image: "kindest/node:v1.28.0@sha256:b7a4cad12c197af3ba43202d3efe03246b3f0793f162afb40a33c923952d5b31"
+      nodePorts:
+      - container: 30001
+        host: 30001
+      - container: 443
+        host: 443
+      - container: 80
+        host: 80

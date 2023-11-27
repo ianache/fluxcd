@@ -1,0 +1,14 @@
+
+- name: 
+  template:
+    src: templates/cluster-config.yaml.j2
+    dest: /tmp/cluster-config.yaml
+    mode: 0644
+  tags: [ create ]
+
+- name: create cluster
+  shell: "kind create cluster --name {{ kind.cluster.name }} --config /tmp/cluster-config.yaml"
+
+- name: set cluster context
+  shell: "kubectl config set-context {{ kind.cluster.name }}"
+
