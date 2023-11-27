@@ -20,4 +20,12 @@ spec:
   upgrade:
     remediation:
       remediateLastFailure: false
+  values:
+    manager:
+      prometheusRule:
+        enabled: false
+        groups: []
+        # Create default rules for monitoring the manager
+        defaultRules:
+          enabled: false
 
