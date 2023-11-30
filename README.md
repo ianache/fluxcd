@@ -1,3 +1,12 @@
+[[_TOC_]]
+
+# Instalar Ansible
+
+```sh
+python3 -m pip -V
+python3 -m pip install --user ansible
+```
+
 # Instalar Kind
 
 ```sh

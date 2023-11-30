@@ -1,0 +1,16 @@
+#############################################
+### ILVER ANACHE PUPO
+### Copyright (c) 2010 - 2023   
+###
+##############################################
+
+- shell: uname
+  ignore_errors: yes
+  register: uname_result
+
+- name: Instalar kind
+  become: yes
+  get_url:
+    url: "https://kind.sigs.k8s.io/dl/v0.20.0/kind-{{ uname_result.stdout }}-amd64"
+    dest: /usr/local/bin/kind
+    mode: "+x"
