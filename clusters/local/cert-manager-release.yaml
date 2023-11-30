@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: jetstack
         namespace: default
-        interval: 1m
+      interval: 1m
   install:
     remediation:
       retries: 3
