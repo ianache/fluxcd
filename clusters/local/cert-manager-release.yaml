@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: cert-manager
-  namespace: management
+  namespace: default
 spec:
   interval: 5m
   chart:
@@ -14,17 +14,17 @@ spec:
         name: jetstack
         namespace: default
         interval: 1m
-      install:
-        remediation:
-          retries: 3
-      upgrade:
-        remediation:
-          remediateLastFailure: false
-      values:
-        installCRDs: true
-        prometheus:
-          enabled: false
-          servicemonitor:
-            enabled: false
-        webhook:
-          timeoutSeconds: 4
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      remediateLastFailure: false
+  values:
+    installCRDs: true
+    prometheus:
+      enabled: false
+      servicemonitor:
+        enabled: false
+    webhook:
+      timeoutSeconds: 4
