@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nginx-ingress
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: nginx-ingress
+      #version: ">=4.0.0 <5.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: ingress-nginx
+        namespace: default
+      interval: 1m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      remediateLastFailure: false
+  values:
+    controller:
+      service:
+        enabled: true
+        type: NodePort #LoadBalancer
+      hostPort:
+        enabled: true
+      autoscaling:
+        enabled: false
+      kind: DaemonSet
