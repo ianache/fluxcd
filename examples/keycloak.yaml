@@ -1,0 +1,12 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak
+  namespace: operators
+  labels:
+    app: sso
+spec:
+  instances: 1
+  hostname: 
+    hostname: keycloak.comsatel.com
+    tlsSecret: keycloak-tls
