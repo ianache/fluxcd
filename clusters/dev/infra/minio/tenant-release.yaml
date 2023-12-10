@@ -60,7 +60,6 @@ spec:
       console:
         enabled: true
         ingressClassName: "nginx"
-        #labels: { }
         annotations:
           company: xnetcorp
           cert-manager.io/cluster-issuer: selfsigned
