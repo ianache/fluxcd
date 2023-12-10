@@ -23,12 +23,13 @@ Personal Access Token:
 github_pat_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ```sh
+ENTORNO=dev
 flux bootstrap github \
   --token-auth \
   --owner=ianache \
   --repository=fluxcd \
   --branch=master \
-  --path=clusters/kind8 \
+  --path=clusters/$ENTORNO \
   --personal
 ```
 
