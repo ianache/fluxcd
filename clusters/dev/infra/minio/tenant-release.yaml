@@ -40,34 +40,34 @@ spec:
         storageClassName: standard
 
     ingress:
-      api:
-        enabled: true
-        ingressClassName: "nginx"
-        labels:
-          app: minio
-          component: console
-          environment: dev
-        annotations:
-          company: xnetcorp
-          cert-manager.io/cluster-issuer: selfsigned
-        tls:
-        - secretName: minio-tenant-1-tls
-          hosts:
-          - minio.crossnetcorp.com
-        host: minio.crossnetcorp.com
-        path: /api
-        pathType: Prefix
+      #api:
+      #  enabled: true
+      #  ingressClassName: "nginx"
+      #  labels:
+      #    app: minio
+      #    component: console
+      #    environment: dev
+      #  annotations:
+      #    company: xnetcorp
+      #    cert-manager.io/cluster-issuer: selfsigned
+      #  tls:
+      #  - secretName: minio-tenant-1-tls
+      #    hosts:
+      #    - minio.crossnetcorp.com
+      #  host: minio.crossnetcorp.com
+      #  path: /api
+      #  pathType: Prefix
       console:
         enabled: true
         ingressClassName: "nginx"
-        labels: { }
+        #labels: { }
         annotations:
           company: xnetcorp
           cert-manager.io/cluster-issuer: selfsigned
         tls:
-        - secretName: minio-tenant-1-tls
+        - secretName: minio-tenant-tls
           hosts:
           - minio.crossnetcorp.com
         host: minio.crossnetcorp.com
-        path: /console
+        path: /
         pathType: Prefix
