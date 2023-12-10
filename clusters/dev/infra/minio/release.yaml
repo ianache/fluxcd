@@ -2,9 +2,10 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: minio-operator
-  namespace: minio-operators
+  namespace: default
 spec:
-  createNamespace: true
+  targetNamespace: minio-operators
+  # createNamespace: true
   interval: 5m
   chart:
     spec:
