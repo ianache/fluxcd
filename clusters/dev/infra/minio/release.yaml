@@ -4,6 +4,7 @@ metadata:
   name: minio-operator
   namespace: default
 spec:
+  releaseName: minio-operator
   targetNamespace: minio-operators
   install:
     createNamespace: true
