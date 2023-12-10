@@ -37,12 +37,12 @@ spec:
         pathType: Prefix
         activeService: true
         hosts:
-          - host: vault.dev.crossnetcorp.com.pe
+          - host: vault.crossnetcorp.com
             paths: []
         tls:
         - secretName: vault-tls
           hosts:
-          - vault.dev.crossnetcorp.com.pe
+          - vault.crossnetcorp.com
       # Storages 
       dataStorage:
         enabled: true
