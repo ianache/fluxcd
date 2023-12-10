@@ -9,6 +9,9 @@ spec:
   install:
     createNamespace: true
   interval: 1m
+  dependsOn:
+    name: minio-operator
+    namespace: default
   chart:
     spec:
       chart: tenant
