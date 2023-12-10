@@ -77,3 +77,13 @@ helm upgrade --install fluxcd fluxcd/helm-operator \
 kind delete cluster --name comsatel-dev
 ```
 
+# Logs
+
+```sh
+kubectl -n flux-system logs -l 'app=helm-controller'
+```
+
+```sh
+kubectl -n flux-system logs -l 'app=source-controller'
+```
+
