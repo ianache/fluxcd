@@ -32,7 +32,7 @@ spec:
       enabled: true
       ingress:
         enabled: true  
-        annotations:
+        annotations: |
           company: xnetcorp
           cert-manager.io/cluster-issuer: selfsigned
         ingressClassName: "nginx"
