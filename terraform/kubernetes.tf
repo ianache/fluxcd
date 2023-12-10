@@ -18,3 +18,12 @@ resource "vault_kubernetes_auth_backend_config" "config" {
 #  disable_iss_validation = "true"
 }
 
+resource "vault_kubernetes_auth_backend_role" "role" {
+  backend                          = vault_auth_backend.kubernetes.path
+  role_name                        = "issuer"
+  bound_service_account_names      = ["issuer"]
+  bound_service_account_namespaces = ["default"]
+  token_ttl                        = 3600
+  token_policies                   = ["pki"]
+  # audience                         = "vault"
+}
