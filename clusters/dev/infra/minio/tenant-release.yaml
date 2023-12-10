@@ -10,7 +10,7 @@ spec:
     createNamespace: true
   interval: 1m
   dependsOn:
-    name: minio-operator
+  - name: minio-operator
     namespace: default
   chart:
     spec:
