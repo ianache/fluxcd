@@ -18,5 +18,19 @@ spec:
         name: minio
         namespace: default
       interval: 1m
-  values: {}
-  #  replicaCount: 2
+  values:
+    console:
+      ingress:
+        enabled: true
+        ingressClassName: "nginx"
+        labels: {}
+        annotations:
+          company: xnetcorp
+          cert-manager.io/cluster-issuer: selfsigned
+        tls:
+        - secretName: consul-tls
+          hosts:
+          - miniocp.crossnetcorp.com
+        host: miniocp.crossnetcorp.com
+        path: /
+        pathType: Prefix
