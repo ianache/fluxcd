@@ -87,3 +87,38 @@ kubectl -n flux-system logs -l 'app=helm-controller'
 kubectl -n flux-system logs -l 'app=source-controller'
 ```
 
+# MinIO
+
+```yaml
+console:
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    labels: {}
+    annotations:
+      company: xnetcorp
+      cert-manager.io/cluster-issuer: selfsigned
+    tls:
+      - secretName: consul-tls
+        hosts:
+          - miniocp.crossnetcorp.com
+    host: miniocp.crossnetcorp.com
+    path: /
+    pathType: Prefix
+```
+
+```sh
+cat clusters/dev/infra/minio/release.yaml | yq .spec.values > /tmp/minio-operator.yaml
+helm upgrade --install minio-operator minio/operator -n minio-operators --create-namespace --values /tmp/minio-operator.yaml
+```
+
+Para acceder con Token de Administrador
+
+```sh
+kubectl -n minio-operators  get secret console-sa-secret -o jsonpath="{.data.token}" | base64 --decode
+```
+
+```sh
+cat clusters/dev/infra/minio/tenant-release.yaml | yq .spec.values > /tmp/minio-tenant.yaml
+helm upgrade -i minio-tenant-1 minio/tenant -n minio-tenants --create-namespace --values /tmp/minio-tenant.yaml
+```

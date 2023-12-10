@@ -8,11 +8,10 @@ spec:
   targetNamespace: minio-operators
   install:
     createNamespace: true
-  interval: 5m
+  interval: 1m
   chart:
     spec:
       chart: operator
-      #version: '4.0.x'
       sourceRef:
         kind: HelmRepository
         name: minio
@@ -23,12 +22,15 @@ spec:
       ingress:
         enabled: true
         ingressClassName: "nginx"
-        labels: {}
+        labels:
+          app: minio
+          component: operator
+          environment: dev
         annotations:
           company: xnetcorp
           cert-manager.io/cluster-issuer: selfsigned
         tls:
-        - secretName: consul-tls
+        - secretName: minio-operator-tls
           hosts:
           - miniocp.crossnetcorp.com
         host: miniocp.crossnetcorp.com

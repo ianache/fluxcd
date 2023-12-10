@@ -29,24 +29,33 @@ spec:
     existingSecret:
       name: minio-tenant-1-env-config
     tenant:
-    - servers: 1
       name: minio-tenant-1
       configuration:
         name: minio-tenant-1-env-config
       pools:
+      - servers: 1
         name: pool-0
-        volumesPerServer: 1
+        volumesPerServer: 2
         size: 2Gi
         storageClassName: standard
+
     ingress:
       api:
-        enabled: false
-        ingressClassName: ""
-        labels: { }
-        annotations: { }
-        tls: [ ]
+        enabled: api
+        ingressClassName: "nginx"
+        labels:
+          app: minio
+          component: console
+          environment: dev
+        annotations:
+          company: xnetcorp
+          cert-manager.io/cluster-issuer: selfsigned
+        tls:
+        - secretName: minio-tenant-1-tls
+          hosts:
+          - minio.crossnetcorp.com
         host: minio.crossnetcorp.com
-        path: /
+        path: /api
         pathType: Prefix
       console:
         enabled: true
@@ -56,9 +65,9 @@ spec:
           company: xnetcorp
           cert-manager.io/cluster-issuer: selfsigned
         tls:
-        - secretName: vault-tls
+        - secretName: minio-tenant-1-tls
           hosts:
           - minio.crossnetcorp.com
         host: minio.crossnetcorp.com
-        path: /
+        path: /console
         pathType: Prefix
