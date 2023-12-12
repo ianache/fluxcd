@@ -1,17 +1,16 @@
----
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: vault-issuer
+  name: vault-issuer-1
   namespace: default
 spec:
   vault:
     server: http://vault.default:8200
-    path: pki_int/sign/crossnetcorp-com #servers #crossnetcorp-com
+    path: pki/sign/crossnetcorp-com
     auth:
       kubernetes:
         mountPath: /v1/auth/kubernetes
         role: issuer
         secretRef:
-          name: issuer #-token
+          name: issuer-token-lmzpj
           key: token
