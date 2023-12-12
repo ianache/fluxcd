@@ -26,4 +26,4 @@ spec:
     prometheus:
       enabled: false
     webhook:
-      timeoutSeconds: 10
+      timeoutSeconds: 5
