@@ -1,16 +1,23 @@
 resource "vault_mount" "pki" {
   path                      = "pki"
   type                      = "pki"
+  description               = "Self signed Vault root CA"
   default_lease_ttl_seconds = 3600
-  max_lease_ttl_seconds     = 87600
+  max_lease_ttl_seconds     = 20 * 365 * 24 * 60 * 60 #87600
 }
 
 resource "vault_pki_secret_backend_root_cert" "root" {
-  backend     = vault_mount.pki.path
-  type        = "internal"
-  common_name = "crossnetcorp.com"
-  issuer_name = "root"
-  ttl         = "87600"
+  backend            = vault_mount.pki.path
+  type               = "internal"
+  common_name        = "crossnetcorp.com"
+  issuer_name        = "root"
+  #ttl                = "87600"
+
+  ttl                = "630720000"
+  format             = "pem"
+  private_key_format = "der"
+  key_type           = "rsa"
+  key_bits           = 4096
 }
 
 resource "vault_pki_secret_backend_issuer" "root" {
@@ -34,8 +41,8 @@ resource "vault_pki_secret_backend_role" "role" {
 
 resource "vault_pki_secret_backend_config_urls" "urls" {
   backend                 = vault_mount.pki.path
-  issuing_certificates    = [ "https://vault.crossnetcorp.com/v1/pki/ca" ]
-  crl_distribution_points = [ "https://vault.crossnetcorp.com/v1/pki/crl" ]
+  issuing_certificates    = [ "https://vault.crossnetcorp.com/v1/${vault_mount.pki.path}/ca" ]
+  crl_distribution_points = [ "https://vault.crossnetcorp.com/v1/${vault_mount.pki.path}/crl" ]
 }
 
 #
@@ -52,24 +59,38 @@ resource "vault_mount" "pki_int" {
 }
 
 resource "vault_pki_secret_backend_intermediate_cert_request" "csr-request" {
-   backend     = vault_mount.pki_int.path
-   type        = "internal"
-   common_name = "crossnetcorp.com"
+   backend            = vault_mount.pki_int.path
+   type               = "internal"
+   common_name        = "crossnetcorp.com"
+   alt_names          = [ "crossnetcorp.com" ]
+   format             = "pem"
+   private_key_format = "der"
+   key_type           = "rsa"
+   key_bits           = 2048
 }
 
 resource "vault_pki_secret_backend_root_sign_intermediate" "intermediate" {
    backend     = vault_mount.pki.path
-   common_name = "new_intermediate"
+   common_name = vault_pki_secret_backend_intermediate_cert_request.csr-request.common_name
    csr         = vault_pki_secret_backend_intermediate_cert_request.csr-request.csr
-   format      = "pem_bundle"
-   ttl         = 15480000
-   issuer_ref  = vault_pki_secret_backend_root_cert.root.issuer_id
+   use_csr_values = true
+   ttl         = vault_mount.pki_int.max_lease_ttl_seconds
+   #format      = "pem_bundle"
+   #ttl         = 15480000
+   #issuer_ref  = vault_pki_secret_backend_root_cert.root.issuer_id
 }
 
 resource "vault_pki_secret_backend_intermediate_set_signed" "intermediate" {
    backend     = vault_mount.pki_int.path
    certificate = vault_pki_secret_backend_root_sign_intermediate.intermediate.certificate
 }
+
+resource "vault_pki_secret_backend_config_urls" "int_urls" {
+  backend                 = vault_mount.pki_int.path
+  issuing_certificates    = [ "https://vault.crossnetcorp.com/v1/${vault_mount.pki_int.path}/ca" ]
+  crl_distribution_points = [ "https://vault.crossnetcorp.com/v1/${vault_mount.pki_int.path}/crl" ]
+}
+
 
 #resource "vault_pki_secret_backend_issuer" "intermediate" {
 #  backend     = vault_pki_secret_backend_root_cert.root.backend
@@ -80,12 +101,23 @@ resource "vault_pki_secret_backend_intermediate_set_signed" "intermediate" {
 resource "vault_pki_secret_backend_role" "intermediate_role" {
    backend          = vault_mount.pki_int.path
 #   issuer_ref       = vault_pki_secret_backend_issuer.root.issuer_ref
-   name             = "crossnetcorp-com"
-   ttl              = 86400
-   max_ttl          = 2592000
-   allow_ip_sans    = true
+   name             = "application"
+   ttl              = 35.5 * 24 * 3600 #86400
+   max_ttl          = 36 * 24 * 3600   # 2592000
+
+   generate_lease     = false
+   allow_bare_domains = true
+   allow_glob_domains = true
+   allow_ip_sans      = true
+   allow_localhost    = true
+
+   #allow_subdomains   = false
+   #allowed_domains = [ "*.crossnetcorp.com" ]
+
    key_type         = "rsa"
    key_bits         = 4096
    allowed_domains  = ["crossnetcorp.com"]
    allow_subdomains = true
+
+   key_usage = ["DigitalSignature", "KeyAgreement", "KeyEncipherment"]
 }

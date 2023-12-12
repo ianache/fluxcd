@@ -6,3 +6,12 @@ terraform {
     }
   }
 }
+
+provider "flux" {
+  kubernetets = {
+    config_path = "~/.kube/config"
+  }
+  git = {
+    url = "https://github.com/ianache/fluxcd.git"
+  }
+}

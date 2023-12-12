@@ -6,11 +6,11 @@ metadata:
 spec:
   vault:
     server: http://vault.default:8200
-    path: pki/sign/crossnetcorp-com
+    path: pki/sign/application
     auth:
       kubernetes:
         mountPath: /v1/auth/kubernetes
         role: issuer
         secretRef:
-          name: issuer-token-lmzpj
+          name: issuer-token #issuer-token-lmzpj
           key: token
