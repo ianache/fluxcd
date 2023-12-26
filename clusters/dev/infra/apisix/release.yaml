@@ -53,7 +53,7 @@ spec:
     gateway:
       enabled: true
       type: ClusterIP
-      externalTrafficPolicy: Local #Cluster
+      externalTrafficPolicy: Cluster #Local #Cluster
       tls:
         enabled: true
       proxyProtocol:
