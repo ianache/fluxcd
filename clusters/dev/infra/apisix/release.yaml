@@ -22,7 +22,9 @@ spec:
       remediateLastFailure: false
   values:
     service:
-      type: ClusterIP # NodePort
+      type: NodePort
+      http:
+        servicePort: 9080
 
     apisix:
       enabled: true
