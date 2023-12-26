@@ -52,10 +52,12 @@ spec:
     #
     gateway:
       enabled: true
-      type: ClusterIP
+      type: NodePort
       externalTrafficPolicy: Cluster #Local #Cluster
       tls:
         enabled: true
+      http:
+        servicePort: 81
       proxyProtocol:
         http:
           enabled: true
