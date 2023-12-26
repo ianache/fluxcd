@@ -1,25 +1,25 @@
-#resource "kubernetes_secret_v1" "issuer" {
-#  metadata {
-#    name = "issuer"
-#    annotations = {
-#      "kubernetes.io/service-account.name" = "issuer"
-#    }
-#  }
-#  wait_for_service_account_token = true
-#  type = "kubernetes.io/service-account-token"
-#  depends_on = [kubernetes_service_account_v1.issuer]
-#}
-#
-#resource "kubernetes_service_account_v1" "issuer" {
-#  metadata {
-#    name = "issuer"
-#    namespace = "default"
-#  }
+resource "kubernetes_secret_v1" "issuer" {
+  metadata {
+    name = "issuer"
+    annotations = {
+      "kubernetes.io/service-account.name" = "issuer"
+    }
+  }
+  wait_for_service_account_token = true
+  type = "kubernetes.io/service-account-token"
+  depends_on = [kubernetes_service_account_v1.issuer]
+}
+
+resource "kubernetes_service_account_v1" "issuer" {
+  metadata {
+    name = "issuer"
+    namespace = "default"
+  }
 ##  #secret {
 ##  #  name = "${kubernetes_secret_v1.issuer.metadata.0.name}"
 ##  #}
 ##  depends_on = [kubernetes_secret_v1.issuer]
-#}
+}
 
 # (1) Habilitar servicio de autenticacion con Kubernetes
 resource "vault_auth_backend" "kubernetes" {

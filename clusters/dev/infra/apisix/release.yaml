@@ -1,0 +1,72 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: apisix
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: apisix
+      #version: ">=4.0.0 <5.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: apisix
+        namespace: default
+      interval: 1m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      remediateLastFailure: false
+  values:
+    apisix:
+      timezone: "America/Lima"
+    gateway:
+      type: ClusterIP
+      tls:
+        enabled: true
+      proxyProtocol:
+        http:
+          enabled: true
+        https:
+          enabled: true
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: selfsigned
+        hosts:
+        - host: apisix.crossnetcorp.com
+          paths:
+          - "/gateway"
+        tls:
+        - secretName: apisix-tls
+          hosts:
+          - apisix.crossnetcorp.com
+    admin:
+      enabled: true
+      type: ClusterIP
+      credentials:
+        admin: edd1c9f034335f136f87ad84b625c8f1
+        viewer: 4054f7cf07e344346cd3f287985e76a2
+      allow:
+        ipList: 0.0.0.0/0
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: selfsigned
+        hosts:
+        - host: apisix.crossnetcorp.com
+          paths:
+          - "/admin"
+        tls:
+        - secretName: apisix-tls
+          hosts:
+          - apisix.crossnetcorp.com
+    etcd:
+      enabled: true
+      reaplicaCount: 1
+      persistence:
+        size: 2Gi
+

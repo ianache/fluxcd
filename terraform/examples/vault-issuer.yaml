@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: vault-issuer-1
+  name: vault-issuer
   namespace: default
 spec:
   vault:
@@ -12,5 +12,6 @@ spec:
         mountPath: /v1/auth/kubernetes
         role: issuer
         secretRef:
-          name: issuer-token #issuer-token-lmzpj
+          name: issuer
+          #name: issuer-token-lmzpj
           key: token
