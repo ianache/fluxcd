@@ -66,7 +66,21 @@ spec:
           - apisix.crossnetcorp.com
     etcd:
       enabled: true
-      reaplicaCount: 1
+      replicaCount: 1
       persistence:
         size: 2Gi
 
+    dashboard:
+      enabled: true
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: selfsigned
+        hosts:
+        - host: apisix.crossnetcorp.com
+          paths:
+          - "/dashboard"
+        tls:
+        - secretName: apisix-tls
+          hosts:
+          - apisix.crossnetcorp.com
