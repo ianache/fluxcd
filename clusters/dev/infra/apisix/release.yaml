@@ -21,10 +21,37 @@ spec:
     remediation:
       remediateLastFailure: false
   values:
+    service:
+      type: ClusterIP # NodePort
+
     apisix:
+      enabled: true
       timezone: "America/Lima"
 
+      admin:
+        enabled: true
+        type: ClusterIP
+        credentials:
+          admin: edd1c9f034335f136f87ad84b625c8f1
+          viewer: 4054f7cf07e344346cd3f287985e76a2
+        allow:
+          ipList: 0.0.0.0/0
+        ingress:
+          enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: selfsigned
+          hosts:
+          - host: apisix-admin.crossnetcorp.com
+            paths:
+            - "/admin"
+          tls:
+          - secretName: apisix-admin-tls
+            hosts:
+    #
+    ## Gateway
+    #
     gateway:
+      enabled: true
       type: ClusterIP
       externalTrafficPolicy: Local #Cluster
       tls:
@@ -36,6 +63,7 @@ spec:
           enabled: true
       ingress:
         enabled: true
+        className: nginx
         annotations:
           cert-manager.io/cluster-issuer: selfsigned
         hosts:
@@ -46,34 +74,17 @@ spec:
         - secretName: apisix-gateway-tls
           hosts:
           - apisix-gateway.crossnetcorp.com
-
-    admin:
-      enabled: true
-      type: ClusterIP
-      credentials:
-        admin: edd1c9f034335f136f87ad84b625c8f1
-        viewer: 4054f7cf07e344346cd3f287985e76a2
-      allow:
-        ipList: 0.0.0.0/0
-      ingress:
-        enabled: true
-        annotations:
-          cert-manager.io/cluster-issuer: selfsigned
-        hosts:
-        - host: apisix-admin.crossnetcorp.com
-          paths:
-          - "/admin"
-        tls:
-        - secretName: apisix-admin-tls
-          hosts:
-          - apisix-admin.crossnetcorp.com
-    
+    #
+    ## ETCD DB
+    #
     etcd:
       enabled: true
       replicaCount: 1
       persistence:
         size: 2Gi
-
+    #
+    ## Dashboard (UI)
+    #
     dashboard:
       enabled: true
       ingress:
