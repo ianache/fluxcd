@@ -23,8 +23,10 @@ spec:
   values:
     apisix:
       timezone: "America/Lima"
+
     gateway:
       type: ClusterIP
+      externalTrafficPolicy: Local #Cluster
       tls:
         enabled: true
       proxyProtocol:
@@ -37,13 +39,14 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: selfsigned
         hosts:
-        - host: apisix.crossnetcorp.com
+        - host: apisix-gateway.crossnetcorp.com
           paths:
-          - "/gateway"
+          - "/"
         tls:
-        - secretName: apisix-tls
+        - secretName: apisix-gateway-tls
           hosts:
-          - apisix.crossnetcorp.com
+          - apisix-gateway.crossnetcorp.com
+
     admin:
       enabled: true
       type: ClusterIP
@@ -57,13 +60,14 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: selfsigned
         hosts:
-        - host: apisix.crossnetcorp.com
+        - host: apisix-admin.crossnetcorp.com
           paths:
           - "/admin"
         tls:
-        - secretName: apisix-tls
+        - secretName: apisix-admin-tls
           hosts:
-          - apisix.crossnetcorp.com
+          - apisix-admin.crossnetcorp.com
+    
     etcd:
       enabled: true
       replicaCount: 1
@@ -77,10 +81,10 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: selfsigned
         hosts:
-        - host: apisix.crossnetcorp.com
+        - host: apisix-dashboard.crossnetcorp.com
           paths:
-          - "/dashboard"
+          - "/"
         tls:
-        - secretName: apisix-tls
+        - secretName: apisix-dashboard-tls
           hosts:
-          - apisix.crossnetcorp.com
+          - apisix-dashboard.crossnetcorp.com
