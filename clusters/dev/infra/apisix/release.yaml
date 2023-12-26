@@ -61,10 +61,10 @@ spec:
           hosts:
           - host: apisix-admin.crossnetcorp.com
             paths:
-            - "/admin"
+            - "/"
           tls:
           - secretName: apisix-admin-tls
-            hosts:
+            hosts: apisix-admin.crossnetcorp.com
     #
     ## Gateway
     #
