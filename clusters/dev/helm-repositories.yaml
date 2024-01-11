@@ -52,4 +52,14 @@ metadata:
 spec:
   interval: 1m
   url: https://charts.apiseven.com
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: doris
+  namespace: default
+spec:
+  interval: 1m
+  url: https://charts.selectdb.com
+
 
