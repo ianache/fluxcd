@@ -11,7 +11,7 @@ spec:
       version: "6.0.8"
       sourceRef:
         kind: HelmRepository
-        name: k8s-dashboard
+        name: kubernetes-dashboard
         namespace: default
       interval: 1m
   install:
