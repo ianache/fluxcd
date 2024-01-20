@@ -78,4 +78,4 @@ metadata:
   namespace: database
 spec:
   interval: 1m
-  url: https://presslabs.github.io/charts
+  url: https://presslabs.github.io/charts/
