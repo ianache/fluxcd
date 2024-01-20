@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: partyreferencedata
-  namespace: default
+  namespace: microservices
 spec:
   interval: 1m
   releaseName: partyreferencedata
