@@ -1,0 +1,64 @@
+api:
+  containers:
+    resources:
+      limits: 
+        cpu: 200m
+  nginx:
+    # No instalar NGINX Ingress Controller. Ya está instalado
+    enabled: false
+  cert-manager:
+    # No instalar Cert Manager. Ya está instados
+    enabled: false
+  app:
+    scaling:
+      replicas: 1
+    #
+    # Ingress
+    #
+ingress:
+  enabled: true
+  hosts:
+  - k8sdev.crossnetcorp.com
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: 'true'
+    cert-manager.io/issuer: selfsigned
+  ## If you plan to use TLS backend with enableInsecureLogin set to false
+  ## (default), you need to uncomment the below.
+  ## If you use ingress-nginx < 0.21.0
+  #   nginx.ingress.kubernetes.io/secure-backends: "true"
+  ## if you use ingress-nginx >= 0.21.0
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+
+  ## Kubernetes Dashboard Ingress Class
+  className: "nginx"
+
+  issuer:
+    name: selfsigned
+    scope: cluster
+  paths:
+    web: /
+    api: /api
+  tls:
+  - secretName: kubernetes-dashboard-tls
+    hosts:
+    - k8sdev.crossnetcorp.com
+
+#
+## Habilita el servidor de métricas
+#
+metrics-server:
+  enabled: true
+
+settings:
+   ## Cluster name that appears in the browser window title if it is set
+  clusterName: "CROSSNETCORP (Dev)"
+  ## Max number of items that can be displayed on each list page
+  itemsPerPage: 10
+  ## Number of seconds between every auto-refresh of logs
+  logsAutoRefreshTimeInterval: 5
+  ## Number of seconds between every auto-refresh of every resource. Set 0 to disable
+  resourceAutoRefreshTimeInterval: 5
+  ## Hide all access denied warnings in the notification panel
+  disableAccessDeniedNotifications: true
+

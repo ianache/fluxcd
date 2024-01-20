@@ -1,0 +1,72 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: bitnami
+  namespace: default
+spec:
+   interval: 1m
+   url: https://charts.bitnami.com/bitnami
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: ingress-nginx
+  namespace: default
+spec:
+   interval: 1m
+   url: https://kubernetes.github.io/ingress-nginx
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: hashicorp
+  namespace: default
+spec:
+  interval: 1m
+  url: https://helm.releases.hashicorp.com
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: jetstack
+  namespace: default
+spec:
+  interval: 1m
+  url: https://charts.jetstack.io
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: minio
+  namespace: default
+spec:
+  interval: 1m
+  url: https://operator.min.io/ 
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: apisix
+  namespace: default
+spec:
+  interval: 1m
+  url: https://charts.apiseven.com
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: doris
+  namespace: default
+spec:
+  interval: 1m
+  url: https://charts.selectdb.com
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: kubernetes-dashboard
+  namespace: default
+spec:
+  interval: 1m
+  url: https://kubernetes.github.io/dashboard/

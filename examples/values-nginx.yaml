@@ -1,0 +1,17 @@
+controller:
+  kind: deployment #daemonset
+  service:
+    enabled: true
+    type: NodePort #LoadBalancer #NodePort
+    # Usar esta configuración si se instala NGINX sobre un cluster que habilite acceso a través de IP pública 
+    #type LoadBalancer
+    #httpPort:
+    #  nodePort: 80
+    #  port: 80
+    #httpsPort:
+    #  nodePort: 443
+    #  port: 443
+  autoscaling:
+    enabled: false
+  extraArgs:
+    update-status: false

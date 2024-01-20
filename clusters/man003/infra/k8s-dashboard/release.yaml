@@ -1,0 +1,57 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: k8s-dashboard
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: k8s-dashboard
+      version: "6.0.8"
+      sourceRef:
+        kind: HelmRepository
+        name: kubernetes-dashboard
+        namespace: default
+      interval: 1m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      remediateLastFailure: false
+  #
+  ## https://github.com/kubernetes/dashboard/blob/master/charts/helm-chart/kubernetes-dashboard/values.yaml
+  #
+  values:
+    # Recursos minimos requeridos
+    api:
+      containers:
+        resources:
+          limits: 
+            cpu: 200m
+    # Inhabilita instalar NGINX
+    nginx:
+      enabled: false
+    # Inhabilitar Cert-Manager
+    cert-manager:
+      enabled: false
+    #
+    app:
+      scaling:
+        replicas: 1
+      #
+      # Ingress
+      #
+      ingress:
+        enabled: true
+        hosts: 
+        - k8s-dashboard.crossnetcorp.com
+        ingressClassName: nginx
+        issuer:
+          name: selfsigned
+          scope: cluster
+        paths:
+          web: /
+          api: /api
+
