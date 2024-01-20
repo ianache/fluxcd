@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: kubernetes-dashboard
-        namespace: default
+        namespace: management
       interval: 1m
   install:
     remediation:
