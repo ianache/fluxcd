@@ -8,7 +8,7 @@ spec:
   releaseName: partyreferencedata
   chart:
     spec:
-      chart: partyreferemcedata
+      chart: chart
       sourceRef:
         kind: GitRepository
         name: partyreferencedata
