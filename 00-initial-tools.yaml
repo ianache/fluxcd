@@ -1,0 +1,6 @@
+---
+- name: Instalar Tools
+  hosts: ["localhost"]
+  connection: local
+  roles:
+  - name: kubectl
