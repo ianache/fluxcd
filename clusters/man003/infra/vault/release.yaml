@@ -32,7 +32,7 @@ spec:
         labels: {}
         annotations:
           company: xnetcorp
-          cert-manager.io/cluster-issuer: selfsigned
+          cert-manager.io/issuer: selfsigned
         ingressClassName: "nginx"
         pathType: Prefix
         activeService: true
