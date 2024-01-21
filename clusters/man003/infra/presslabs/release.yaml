@@ -21,7 +21,26 @@ spec:
     remediation:
       remediateLastFailure: false
   values:
+    replicaCount: 1
     serviceMonitor:
       enabled: false
-
-     
+    mysqlClustersGlobalServiceMonitor:
+      enabled: false
+    orchestrator:
+      ingress:
+        enabled: true
+        className: "nginx"
+        annotations:
+          cert-manager.io/issuer: selfsigned
+        hosts:
+        - host: orchestrator.crossnetcorp.com
+          paths:
+          - path: /
+            pathType: ImplementationSpecific
+        tls:
+        - secretName: orchestrator-tls
+          hosts:
+          - orchestrator.crossnetcorp.com
+      persistence:
+        enabled: true
+        size: 1Gi
