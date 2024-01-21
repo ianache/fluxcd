@@ -79,3 +79,12 @@ metadata:
 spec:
   interval: 1m
   url: https://presslabs.github.io/charts/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: bitpoke
+  namespace: database
+spec:
+  interval: 1m
+  url: https://helm-charts.bitpoke.io
