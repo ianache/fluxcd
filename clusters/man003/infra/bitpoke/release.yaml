@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: bitpoke
-  namespace: default #database
+  namespace: database
 spec:
   interval: 5m
   chart:
@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: bitpoke #presslabs
-        namespace: default #database
+        namespace: database
       interval: 1m
   install:
     remediation:

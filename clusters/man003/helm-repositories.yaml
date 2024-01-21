@@ -84,7 +84,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: bitpoke
-  namespace: default #database
+  namespace: database
 spec:
   interval: 1m
   url: https://helm-charts.bitpoke.io
