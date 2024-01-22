@@ -88,3 +88,14 @@ metadata:
 spec:
   interval: 1m
   url: https://helm-charts.bitpoke.io
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: bitnami_keycloak
+  namespace: management
+spec:
+  interval: 1m
+  url: oci://registry-1.docker.io/bitnamicharts/keycloak
+  ref:
+    tag: latest

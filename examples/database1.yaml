@@ -1,0 +1,13 @@
+apiVersion: mysql.presslabs.org/v1alpha1
+kind: MysqlDatabase
+metadata:
+  name: partyreferencedata
+  namespace: database
+  annotations:
+    # When the MysqlDatabase is deleted, the MySQL DB will be preserved
+    mysql-operator.presslabs.org/resourceDeletionPolicy: retain 
+spec:
+  database: partyreferencedata
+  clusterRef:
+    name: partyreferencedata
+    namespace: database
