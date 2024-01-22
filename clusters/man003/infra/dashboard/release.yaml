@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: k8s-dashboard
+  name: kubernetes-dashboard
   namespace: management
 spec:
   interval: 5m
@@ -51,7 +51,7 @@ spec:
       annotations:
         kubernetes.io/ingress.class: nginx
         kubernetes.io/tls-acme: 'true'
-        cert-manager.io/issuer: selfsigned
+        cert-manager.io/cluster-issuer: selfsigned
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       className: nginx
 
