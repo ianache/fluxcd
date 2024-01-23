@@ -99,3 +99,14 @@ spec:
   url: oci://registry-1.docker.io/bitnamicharts/keycloak
   ref:
     tag: latest
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: jenkins
+  namespace: management
+spec:
+  interval: 1m
+  url: https://charts.jenkins.io
+  ref:
+    tag: latest
