@@ -92,7 +92,7 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: bitnami_keycloak
+  name: bitnami-keycloak
   namespace: management
 spec:
   interval: 1m
