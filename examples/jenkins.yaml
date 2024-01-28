@@ -1,0 +1,22 @@
+controller:
+  ingress:
+    enabled: true
+    #labels: {}
+    annotations:
+      company: xnetcorp
+      cert-manager.io/issuer: selfsigned
+    ingressClassName: "nginx"
+    pathType: Prefix
+    activeService: true
+    hosts:
+      - host: jenkins.crossnetcorp.com
+        paths: []
+    tls:
+    - secretName: jenkins-tls
+      hosts:
+      - jenkins.crossnetcorp.com
+# Storages
+persistence:
+  enabled: true
+  size: "3Gi"
+

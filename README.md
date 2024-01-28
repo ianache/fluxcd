@@ -134,3 +134,12 @@ Por ejemplo,
 ```sh
 eyJhbGciOiJSUzI1NiIsImtpZCI6ImF4WjlEQzZFVnd5R3VjM0l5NWhCZ3Z6OW1DNzNJWl8xOVZtdjlKdWFPaEEifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzA1OTAxNDczLCJpYXQiOjE3MDU4OTc4NzMsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJtYW5hZ2VtZW50Iiwic2VydmljZWFjY291bnQiOnsibmFtZSI6ImRhc2hib2FyZC1hZG1pbi11c2VyIiwidWlkIjoiNWI2MGYwNTEtYzFmMy00YjQxLWEzZmUtYjQ3ZGNmZGJhOGIzIn19LCJuYmYiOjE3MDU4OTc4NzMsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDptYW5hZ2VtZW50OmRhc2hib2FyZC1hZG1pbi11c2VyIn0.qY-zM5wlp57V_rW1pruxERe7mwFxjokgU-tBwvdYwz2-3YN8rAgsRY2VKNMQWtlgi-VC0L7hscL3Zx0icZtImxBxUsCxV1ivHvWAb-MRqPp6qpsoCrPWrS1M8axLUtxIo0aUcWkpzD5EfUvZ7nkPf9w4rcRKGctV8Hc6-Xw3y8CxEHirDdK2Bg-6ZXzuRSix2smOiYWZ59stYKmyH21axXcqEiDR0wpBRE9qZxVdmVEP9r1Z6nH4gzYWJYVUbeEshK-Y0zsTFM2VunkKa8gFENdkkmU_jzJq-ZbqLoDsgS5VqYlh9hxIenzkWgOw0len8CcuRU8C9VUAYP-ORgJVIA
 ```
+
+# Generar clave aleatoria
+
+```sh
+PASSWD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
+echo "The password for user@example.com is  $PASSWD"
+KF_PASSWD=$(htpasswd -nbBC 12 USER $PASSWD| sed -r 's/^.{5}//')
+echo "Password: $KF_PASSWD"
+```
