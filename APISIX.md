@@ -1,6 +1,6 @@
 
 
-## Listar Enturamientos
+## Listar Enrutamientos
 
 ```sh
 curl -k https://apisix-admin.crossnetcorp.com/apisix/admin/routes \

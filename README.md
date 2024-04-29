@@ -42,6 +42,22 @@ flux bootstrap github \
   --personal
 ```
 
+Para `GitLab`
+
+```sh
+ENTORNO=dev
+OWNER="comsatel/infrastructure"
+REPOSITORY="flux-cd"
+flux bootstrap gitlab \
+  --token-auth \
+  --owner=$OWNER \
+  --repository=$REPOSITORY \
+  --branch=develop \
+  --path=clusters/$ENTORNO \
+  --personal --hostname project.comsatel.com.pe
+```
+
+
 ```sh
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
