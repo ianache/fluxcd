@@ -70,3 +70,13 @@ metadata:
 spec:
   interval: 1m
   url: https://kubernetes.github.io/dashboard/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: trino
+  namespace: default
+spec:
+  interval: 1m
+  url: https://trinodb.github.io/charts
+

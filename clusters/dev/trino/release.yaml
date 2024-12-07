@@ -1,0 +1,104 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: trinodb
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: trino
+      #version: ">=4.0.0 <5.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: trino
+        namespace: default
+      interval: 1m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      remediateLastFailure: false
+  values:
+    accessControl: {}
+    additionalCatalogs: {}
+      #vehiculos: |-
+      #  connector.name=mysql
+      #  connection-url=jdbc:mysql://vehiculos-database-mysql.database.svc:3306
+      #  connection-user=microservicio
+      #  connection-password=secr3t!
+    additionalConfigProperties: {}
+    additionalExchangeManagerProperties: {}
+    additionalLogProperties: {}
+    additionalNodeProperties: {}
+    affinity: {}
+    auth: {}
+    coordinator:
+      additionalJVMConfig: {}
+      jvm:
+        gcMethod:
+          g1:
+            heapRegionSize: 32M
+          type: UseG1GC
+        maxHeapSize: 1G
+      resources: {}
+    env: []
+    eventListenerProperties: {}
+    image:
+      pullPolicy: IfNotPresent
+      repository: trinodb/trino
+      tag: 467
+    securityContext:
+      runAsGroup: 1000
+      runAsUser: 1000
+    server:
+      autoscaling:
+        enabled: false
+        maxReplicas: 5
+        targetCPUUtilizationPercentage: 50
+      config:
+        authenticationType: ""
+        http:
+          port: 8080
+        https:
+          enabled: false
+          keystore:
+            path: ""
+          port: 8443
+        memory:
+          heapHeadroomPerNode: 512MB
+        path: /etc/trino
+        query:
+          maxMemory: 2GB
+          maxMemoryPerNode: 512MB
+      coordinatorExtraConfig: |
+        web-ui.enabled=true
+        web-ui.authentication.type=fixed
+        #web-ui.shared-secret=welcome1
+        web-ui.user=admin
+      exchangeManager:
+        baseDir: /tmp/trino-local-file-system-exchange-manager
+        name: filesystem
+      log:
+        trino:
+          level: INFO
+      node:
+        dataDir: /data/trino
+        environment: production
+        pluginDir: /usr/lib/trino/plugin
+      workerExtraConfig: ""
+      workers: 1
+    service:
+      port: 8080
+      type: ClusterIP
+    worker:
+      additionalJVMConfig: {}
+      jvm:
+        gcMethod:
+          g1:
+            heapRegionSize: 32M
+          type: UseG1GC
+        maxHeapSize: 1G
+      resources: {}
+    
