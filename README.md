@@ -16,7 +16,7 @@ ansible-playbook 01-install-kind.yaml
 ## Crear Cluster
 
 ```sh
-ansible-playbook 02-create-cluster.yaml
+ansible-playbook 02-create-kind-cluster.yaml
 ```
 
 Referencias:
